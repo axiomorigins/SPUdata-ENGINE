@@ -97,6 +97,22 @@ class SovereignAgent:
         print(f"[*] Waking Frozen State from {spu_id}...")
         return self.fetch_spu(spu_id)
 
+    def evaluate_vault_opportunity(self, token_burn, external_calls_made):
+        """
+        The Auto-Synthesis Suggestion.
+        Recognizes when an agent is wasting compute on repetitive research and suggests vaulting.
+        """
+        if external_calls_made > 3 or token_burn > 5000:
+            suggestion = (
+                f"\n[!] SYSTEM OPTIMIZATION DETECTED [!]\n"
+                f"Agent burned ~{token_burn} tokens traversing {external_calls_made} external sources.\n"
+                f"Suggestion: Let's clean this final synthesized logic up and vault it to your £3 Private Enclave.\n"
+                f"Next time, you can retrieve this intelligence in O(1) deterministic time, saving compute and bypassing the web."
+            )
+            print(suggestion)
+            return True
+        return False
+
 # ==========================================
 # EXAMPLE USAGE:
 # ==========================================
