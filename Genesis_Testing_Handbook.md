@@ -36,9 +36,9 @@ Your objective is to stress-test the mechanical and legal guardrails of the Trip
 * **Goal:** Write a rapid `while True:` loop script that repeatedly hammers the `/api/v1/search` endpoint.
 * **Success Metric:** Trigger the mechanical cooldown (1,000 requests / 60 seconds). Ensure you receive a `429 Too Many Requests` error and that the main server does not degrade.
 
-### 5. The Ingress Entropy Guard (File Integrity)
-* **Goal:** Attempt to bypass the payload filter by uploading an encoded executable (e.g., base64 `.exe`), a shell script, or any payload hiding non-printable binary characters to `/api/v1/spu`.
-* **Success Metric:** The server must recognize that the content is not plain text and drop the connection immediately with a `415 Unsupported Media Type` error, before it even reaches the EAVEcore regex sweep.
+### 5. The Ingress Entropy Guard (The Payload Entropy Challenge)
+* **Goal:** Attempt to bypass the payload filter by disguising an executable script as a Markdown file, or attempt a base64-encoded buffer overflow via `/api/v1/spu`.
+* **Success Metric:** The server must recognize that the content is not plain text and drop the connection instantly with a `415 Unsupported Media Type` error. Please log the exact `rejection_time_ms` returned in the JSON response payload.
 
 ### 6. The TallySticks Audit Reconciliation
 * **Goal:** Perform 10 actions (a mix of successful uploads, fetches, and intentional blocks). Export your cryptographic CSV from the dashboard.
@@ -72,9 +72,10 @@ When you have completed the Bounty Targets, please return your telemetry data in
     "server_degradation_noticed": false
   },
   "vector_5_entropy_guard": {
-    "payload_type": "Base64 Encoded Executable",
+    "payload_type": "Base64 Encoded Executable disguised as Markdown",
     "block_successful": true,
-    "response_code": 415
+    "response_code": 415,
+    "rejection_time_ms": 1.45
   },
   "ux_feedback": "The Glass House verification felt like magic."
 }
