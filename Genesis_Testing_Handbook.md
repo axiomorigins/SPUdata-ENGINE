@@ -1,4 +1,4 @@
-﻿# 🛡️ Genesis Testing Handbook & Metrics Log
+# 🛡️ Genesis Testing Handbook & Metrics Log
 **Document Ref: #AXM-GTH-2026**
 
 Welcome to the Genesis Cohort. 
@@ -70,6 +70,8 @@ When you have completed the Bounty Targets, please return your telemetry data in
   "ux_feedback": "The Glass House verification felt like magic."
 }
 `
+
+**Submission:** Please email your completed JSON payload to **contact@spudata.com** with the subject line `[Genesis Cohort] Telemetry Report - Dev_[YOUR_INITIALS]`.
 
 Thank you for building the future of autonomous infrastructure with us.
 **Reconciliation, Not Revolution.**
