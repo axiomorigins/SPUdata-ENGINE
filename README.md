@@ -5,6 +5,9 @@
 [![TallySticks Witness](https://img.shields.io/badge/Ledger-TallySticks_Verified-success)](#)
 [![EAVEcore Shield](https://img.shields.io/badge/Compliance-Liability_Zero-red)](#)
 
+> [!IMPORTANT]
+> **Genesis Cohort Testers:** Please read the **[Genesis Testing Handbook & Metrics Log](Genesis_Testing_Handbook.md)** for instructions on provisioning your test keys, your 5 Bounty Targets, and how to submit your telemetry data.
+
 ## Overview
 The current Agentic AI ecosystem burns millions of tokens probabilistically re-inventing basic logic loops. The **SPUdata SDK** allows developers to bypass the "thinking" phase and jump straight to the "execution" phase via **Deterministic Retrieval**. 
 
