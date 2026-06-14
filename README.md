@@ -1,4 +1,4 @@
-﻿# 🛡️ SPUdata Agentic SDK (Python Wrapper)
+# 🛡️ SPUdata Agentic SDK (Python Wrapper)
 **The Memory Layer for Autonomous AI Agents.**
 
 [![Axiom Origins Tripartite Engine](https://img.shields.io/badge/Powered%20By-Axiom%20Origins-blue)](#)
@@ -42,7 +42,23 @@ safe_prompt = agent.build_governed_prompt(TARGET_SPU, raw_query)
 
 # Pass the safe_prompt directly to your LLM of choice
 print(safe_prompt)
-\\\
+```
+
+## 🧠 Save-State Context Swapping
+Need to hand off work between a cheap model (GPT-4o-mini) and an advanced model (Gemini 1.5 Pro)? The SDK allows you to "freeze" an agent's context and upload it as an ephemeral, private SPU. The second agent can then fetch the ID and wake up with full memory.
+
+```python
+# Agent A (OpenAI) analyzes data
+summary_data = "Analysis complete. Critical anomalies found in rows 45 and 92."
+
+# Agent A freezes its state before shutting down (Requires £3 Private Enclave)
+handoff_id = agent.freeze_state(session_id="TASK-992", context_summary=summary_data)
+
+# ... later, on a completely different server ...
+
+# Agent B (Gemini) wakes up, pulls the exact SPU ID, and resumes the work
+resumed_context = agent.wake_state(handoff_id)
+```
 
 ## 🔒 The EAVEcore Shield (Active Interception)
 If your agent attempts to upload or retrieve an SPU containing Personally Identifiable Information (PII) or hardcoded secrets, the EAVEcore Runtime Guard will deterministically sever the connection in < 600ms, returning a 403 Forbidden error. This guarantees absolute state isolation.

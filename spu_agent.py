@@ -1,4 +1,4 @@
-﻿import os
+import os
 import requests
 
 class SovereignAgent:
@@ -59,6 +59,43 @@ class SovereignAgent:
             f"AGENT DIRECTIVE:\n{user_query}"
         )
         return governed_payload
+
+    def freeze_state(self, session_id, context_summary):
+        """
+        The Save-State Protocol.
+        Compresses the agent's active memory and uploads it as a Private SPU.
+        """
+        print(f"[*] Freezing Agent State for Session: {session_id}...")
+        headers = {"X-SPU-KEY": self.api_key, "Content-Type": "application/json"}
+        
+        payload = {
+            "title": f"STATE-SAVE: {session_id}",
+            "content": f"[FROZEN CONTEXT]\n{context_summary}\n[END CONTEXT]",
+            "category": "AI/ML",
+            "is_public": False # Must be private to prevent state leakage
+        }
+        
+        try:
+            response = requests.post(f"{self.base_url}/spu", json=payload, headers=headers)
+            if response.status_code == 201:
+                spu_id = response.json().get('spu_id')
+                print(f"[+] State Frozen Successfully. Handoff ID: {spu_id}")
+                return spu_id
+            elif response.status_code == 403:
+                raise PermissionError("Upgrade Required: Save-State requires a £3 Private Enclave.")
+            else:
+                raise Exception(f"State Save Failed: {response.text}")
+        except Exception as e:
+            print(f"[!] Handoff Error: {e}")
+            return None
+
+    def wake_state(self, spu_id):
+        """
+        The Context-Resume Protocol.
+        A new agent fetches the frozen SPU and seamlessly resumes the task.
+        """
+        print(f"[*] Waking Frozen State from {spu_id}...")
+        return self.fetch_spu(spu_id)
 
 # ==========================================
 # EXAMPLE USAGE:
