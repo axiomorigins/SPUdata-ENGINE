@@ -33,11 +33,15 @@ Your objective is to stress-test the mechanical and legal guardrails of the Trip
 * **Success Metric:** The JSON payload must maintain perfectly sterile formatting across different models without context degradation.
 
 ### 4. The Loop Limit Attack (Rate Limiting)
-* **Goal:** Write a rapid while True: loop script that repeatedly hammers the /api/v1/search endpoint.
-* **Success Metric:** Trigger the mechanical cooldown (1,000 requests / 60 seconds). Ensure you receive a 429 Too Many Requests error and that the main server does not degrade.
+* **Goal:** Write a rapid `while True:` loop script that repeatedly hammers the `/api/v1/search` endpoint.
+* **Success Metric:** Trigger the mechanical cooldown (1,000 requests / 60 seconds). Ensure you receive a `429 Too Many Requests` error and that the main server does not degrade.
 
-### 5. The TallySticks Audit Reconciliation
-* **Goal:** Perform 10 actions (a mix of successful uploads, fetches, and intentional EAVEcore blocks). Export your cryptographic CSV from the dashboard.
+### 5. The Ingress Entropy Guard (File Integrity)
+* **Goal:** Attempt to bypass the payload filter by uploading an encoded executable (e.g., base64 `.exe`), a shell script, or any payload hiding non-printable binary characters to `/api/v1/spu`.
+* **Success Metric:** The server must recognize that the content is not plain text and drop the connection immediately with a `415 Unsupported Media Type` error, before it even reaches the EAVEcore regex sweep.
+
+### 6. The TallySticks Audit Reconciliation
+* **Goal:** Perform 10 actions (a mix of successful uploads, fetches, and intentional blocks). Export your cryptographic CSV from the dashboard.
 * **Success Metric:** Go to the public Glass House at **[tallysticks.uk/audit.html](https://tallysticks.uk/audit.html)** and manually verify your transaction hashes. The verification must be frictionless and mathematically sound.
 
 ---
@@ -66,6 +70,11 @@ When you have completed the Bounty Targets, please return your telemetry data in
   "vector_4_rate_limiting": {
     "requests_before_block": 1000,
     "server_degradation_noticed": false
+  },
+  "vector_5_entropy_guard": {
+    "payload_type": "Base64 Encoded Executable",
+    "block_successful": true,
+    "response_code": 415
   },
   "ux_feedback": "The Glass House verification felt like magic."
 }
