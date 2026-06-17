@@ -6,7 +6,10 @@
 [![EAVEcore Shield](https://img.shields.io/badge/Compliance-Liability_Zero-red)](#)
 
 > [!IMPORTANT]
-> **Genesis Cohort Testers:** Please read the **[Genesis Testing Handbook & Metrics Log](Genesis_Testing_Handbook.md)** for instructions on provisioning your test keys, your 5 Bounty Targets, and how to submit your telemetry data.
+> **Genesis Cohort Testers:** Please read the **[Genesis Testing Handbook & Metrics Log](Genesis_Testing_Handbook.md)** for instructions on provisioning your test keys, your 6 Bounty Targets, and how to submit your telemetry data.
+
+> [!WARNING]
+> ⚠️ **Note for Genesis Testers:** SPUdata enforces strict Fair Usage Policies (1,000 requests / 60 seconds). Do not run infinite loops against the API, or the Sovereign Kill Switch will permanently sever your test key.
 
 ## Overview
 The current Agentic AI ecosystem burns millions of tokens probabilistically re-inventing basic logic loops. The **SPUdata SDK** allows developers to bypass the "thinking" phase and jump straight to the "execution" phase via **Deterministic Retrieval**. 

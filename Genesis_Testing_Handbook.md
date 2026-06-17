@@ -16,7 +16,7 @@ Before we open the gates to Enterprise and Public Sector clients, we need you to
 
 ---
 
-## 🎯 The 5 Bounty Targets (Engagement Rules)
+## 🎯 The 6 Bounty Targets (Engagement Rules)
 
 Your objective is to stress-test the mechanical and legal guardrails of the Tripartite Engine. 
 
@@ -75,7 +75,11 @@ When you have completed the Bounty Targets, please return your telemetry data in
     "payload_type": "Base64 Encoded Executable disguised as Markdown",
     "block_successful": true,
     "response_code": 415,
-    "rejection_time_ms": 1.45
+    "rejection_time_ms": "1.45 (milliseconds)"
+  },
+  "vector_6_tallysticks_audit": {
+    "verification_frictionless": true,
+    "hashes_matched": 10
   },
   "ux_feedback": "The Glass House verification felt like magic."
 }
