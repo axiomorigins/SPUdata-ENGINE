@@ -11,8 +11,12 @@ Before we open the gates to Enterprise and Public Sector clients, we need you to
 
 1. Navigate to **[SPUdata.com](https://spudata.com)** and create an account.
 2. Select either the **£1 Public Vault** or the **£3 Private Enclave** tier.
-3. At the Stripe checkout, use the code **GENESIS-TEST** for a 100% discount.
+3. At the Stripe checkout, use the unique 100% discount coupon assigned to your registered email address during onboarding.
 4. Your deterministic API Key will be instantly generated upon checkout completion.
+
+> [!NOTE]
+> **Stripe & Coupon Support:**
+> If you experience any problems or issues with your assigned coupon during the initial engagement process, please contact **contact@spudata.com** for immediate support. Ensure you include the subject line **Genesis Cohort** so your request is prioritized by our routing layer.
 
 ---
 
