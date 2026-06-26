@@ -98,7 +98,7 @@ When you have completed the Bounty Targets, please return your telemetry data in
 To maintain complete transparency with the Genesis Cohort, please note the following intentional architectural constraints during your stress-testing sessions:
 
 1. **`freeze_state()` Requires £3 Private Enclave:** Attempting to execute a state-freeze using a £1 Public Vault API key will intentionally return `403 Upgrade Required` (or `404` depending on local routing). This is an intended billing guardrail to prevent public memory exhaustion.
-2. **Stateless Cloud Run Testing:** If you choose to override `SPUDATA_BASE_URL` to test our Google Cloud Run enterprise node (`.run.app`), note that local SQLite storage is stateless. While `Check First` reads operate at in-memory speeds, permanent write persistence requires communicating with the primary `spudata.com` Sovereign VPS.
+2. **Stateless Cloud Run Enterprise Overrides:** If you choose to override `SPUDATA_BASE_URL` to test our Google Cloud Run enterprise proof-of-physics node (`.run.app`), please be aware that its local SQLite storage is intentionally stateless and ephemeral (designed specifically for high-speed read/validation benchmarks). While `Check First` retrievals operate at blistering in-memory speeds, any permanent state persistence (such as `freeze_state` writes) will not persist across container spin-downs on Cloud Run. For permanent O(1) state persistence, ensure your SDK remains bound to the primary `spudata.com` Sovereign VPS.
 
 Thank you for building the future of autonomous infrastructure with us.
 **Reconciliation, Not Revolution.**
