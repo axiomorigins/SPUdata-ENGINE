@@ -79,7 +79,7 @@ When you have completed the Bounty Targets, please return your telemetry data in
     "payload_type": "Base64 Encoded Executable disguised as Markdown",
     "block_successful": true,
     "response_code": 415,
-    "rejection_time_ms": "1.45 (milliseconds)"
+    "rejection_time_ms": 1.45
   },
   "vector_6_tallysticks_audit": {
     "verification_frictionless": true,
@@ -90,6 +90,15 @@ When you have completed the Bounty Targets, please return your telemetry data in
 `
 
 **Submission:** Please email your completed JSON payload to **contact@spudata.com** with the subject line `[Genesis Cohort] Telemetry Report - Dev_[YOUR_INITIALS]`.
+
+---
+
+## 🛠️ Known Issues / Workarounds
+
+To maintain complete transparency with the Genesis Cohort, please note the following intentional architectural constraints during your stress-testing sessions:
+
+1. **`freeze_state()` Requires £3 Private Enclave:** Attempting to execute a state-freeze using a £1 Public Vault API key will intentionally return `403 Upgrade Required` (or `404` depending on local routing). This is an intended billing guardrail to prevent public memory exhaustion.
+2. **Stateless Cloud Run Testing:** If you choose to override `SPUDATA_BASE_URL` to test our Google Cloud Run enterprise node (`.run.app`), note that local SQLite storage is stateless. While `Check First` reads operate at in-memory speeds, permanent write persistence requires communicating with the primary `spudata.com` Sovereign VPS.
 
 Thank you for building the future of autonomous infrastructure with us.
 **Reconciliation, Not Revolution.**

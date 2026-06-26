@@ -1,8 +1,8 @@
-﻿from spu_agent import SovereignAgent
+from spu_agent import SovereignAgent
 import os
 
 # Use the key you provided (will be rotated after)
-os.environ["SPUDATA_API_KEY"] = "spudata_VUtY5C9TwZFZCgEIP_Eu49o1I7LDmpi-yEEHOeereXc"
+os.environ["SPUDATA_API_KEY"] = "spudata_P19zPSYWx6cVs1Nv1WOxGQpMPe5acdbf2velGMDgqv8"
 
 agent = SovereignAgent()
 

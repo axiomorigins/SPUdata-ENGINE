@@ -11,6 +11,7 @@ Tracks developer onboarding and validates the Stripe provisioning pipeline.
 * **Coupon Code Used:** (Assigned via Email during engagement)
 * **Tester Name / GitHub Username:**
 * **Tester Email:**
+* **Tester Tier:** `[Public / Private]` (Certain enclave stress tests require £3 keys)
 * **Stripe Onboarding Status:** `[Pass / Fail]` (Did the code work and mint a key?)
 * **SDK Initialization:** `[Pass / Fail]` (Did they successfully run `test_agent.py`?)
 
@@ -60,9 +61,9 @@ Captures subjective data required to polish the commercial offering.
 Below is the exact CSV header structure formatted for instant import into your master spreadsheet. 
 
 ```csv
-Coupon Code Used,Tester Name / GitHub Username,Tester Email,Stripe Onboarding Status,SDK Initialization,Standard PII Drop,Financial Data Drop,Infrastructure / Secrets Drop,Deep-Infra / Network Drop,Crypto Wallet Drop,Evasion Attempt,Average Rejection Time (ms),Public SPU Retrieval,Governed Prompt Built,Raw Token Savings Reported,Public Key Block,Private Freeze Success,Wake State Fidelity,Nested JSON Exhaustion Test,Rate Limit Trigger,Malicious Binary Block,Audit Ledger Export,Decoupled Verification,Bug Reports / Bypasses Found,UX/UI Friction Points,Feature Requests
-GENESIS-TEST-01,dev_pioneer1,pioneer1@example.com,Pass,Pass,Pass,Pass,Pass,Pass,Pass,Pass,1.42,Pass,Pass,12500,Pass,Pass,Pass,Pass,Pass,Pass,Pass,Pass,None,Clean SDK setup,Add more Next.js SPUs
-GENESIS-TEST-02,ai_architect,architect@example.com,Pass,Pass,Pass,Pass,Pass,Pass,Pass,Pass,1.38,Pass,Pass,18000,Pass,Pass,Pass,Pass,Pass,Pass,Pass,Pass,None,Clear error parsing,GraphQL support
+Coupon Code Used,Tester Name / GitHub Username,Tester Email,Tester Tier,Stripe Onboarding Status,SDK Initialization,Standard PII Drop,Financial Data Drop,Infrastructure / Secrets Drop,Deep-Infra / Network Drop,Crypto Wallet Drop,Evasion Attempt,Average Rejection Time (ms),Public SPU Retrieval,Governed Prompt Built,Raw Token Savings Reported,Public Key Block,Private Freeze Success,Wake State Fidelity,Nested JSON Exhaustion Test,Rate Limit Trigger,Malicious Binary Block,Audit Ledger Export,Decoupled Verification,Bug Reports / Bypasses Found,UX/UI Friction Points,Feature Requests
+GENESIS-TEST-01,dev_pioneer1,pioneer1@example.com,Private,Pass,Pass,Pass,Pass,Pass,Pass,Pass,Pass,1.42,Pass,Pass,12500,Pass,Pass,Pass,Pass,Pass,Pass,Pass,Pass,None,Clean SDK setup,Add more Next.js SPUs
+GENESIS-TEST-02,ai_architect,architect@example.com,Public,Pass,Pass,Pass,Pass,Pass,Pass,Pass,Pass,1.38,Pass,Pass,18000,Pass,Pass,Pass,Pass,Pass,Pass,Pass,Pass,None,Clear error parsing,GraphQL support
 ```
 
 ---
