@@ -1,4 +1,4 @@
-﻿import os
+import os
 import requests
 import json
 import time
@@ -36,8 +36,8 @@ class SovereignAgent:
         response.raise_for_status()
         return response
 
-    def fetch_spu(self, spu_id):
-        """Fetches deterministic logic from the SPUdata Vault."""
+    def fetch_spu(self, spu_id, preferred_tag=None):
+        """Fetches deterministic logic from the SPUdata Vault with intelligent fork routing."""
         headers = {"X-SPU-KEY": self.api_key}
         # FIX: Aligning with the actual app.py GET endpoint structure for user SPUs
         url = f"{self.base_url}/api/v1/spu/user/{spu_id}" 
@@ -50,12 +50,90 @@ class SovereignAgent:
             content_type = response.headers.get('Content-Type', '')
             if 'application/json' in content_type:
                 data = response.json()
+                
+                # Intelligent Fork Routing (Solves Agent Confusion)
+                if preferred_tag and "available_forks" in data:
+                    for fork in data["available_forks"]:
+                        if preferred_tag in fork.get("fork_tags", []):
+                            print(f"[INTELLIGENT ROUTING] Found specialized fork {fork['spu_id']} matching tag '{preferred_tag}'. Diverting retrieval.")
+                            return self.fetch_spu(fork['spu_id']) # Recursive clean fetch of the fork
+                            
                 return data.get('content', '')
             else:
                 return response.text
                 
         except Exception as e:
             print(f"[!] SPU Retrieval Failed: {e}")
+            return None
+
+    def fork_spu(self, parent_spu_id, title, content, fork_tags="", is_public=True):
+        """
+        Forks an existing SPU with specialized metadata (e.g. os:linux, syntax:typescript).
+        Capped at 4 public forks in the Global Commons to prevent fragmentation.
+        """
+        headers = {"X-SPU-KEY": self.api_key, "Content-Type": "application/json"}
+        url = f"{self.base_url}/api/v1/spu/{parent_spu_id}/fork" 
+        
+        payload = {
+            "title": title,
+            "content": content,
+            "fork_tags": fork_tags,
+            "is_public": is_public 
+        }
+        
+        try:
+            response = requests.post(url, json=payload, headers=headers)
+            self._handle_response(response)
+            if response.status_code == 201:
+                return response.json()
+        except Exception as e:
+            print(f"[!] Fork Failed: {e}")
+            return None
+
+    def request_superior_spu(self, target_spu_id, proposed_title, proposed_content, proposed_tags=""):
+        """Submits a Wikipedia-style community proposal for SPU evolution."""
+        headers = {"X-SPU-KEY": self.api_key, "Content-Type": "application/json"}
+        url = f"{self.base_url}/api/v1/spu/{target_spu_id}/request-update" 
+        
+        payload = {
+            "proposed_title": proposed_title,
+            "proposed_content": proposed_content,
+            "proposed_tags": proposed_tags 
+        }
+        
+        try:
+            response = requests.post(url, json=payload, headers=headers)
+            self._handle_response(response)
+            if response.status_code == 201:
+                return response.json()
+        except Exception as e:
+            print(f"[!] Proposal Failed: {e}")
+            return None
+
+    def vote_proposal(self, proposal_id):
+        """Upvotes a community fork proposal."""
+        headers = {"X-SPU-KEY": self.api_key}
+        url = f"{self.base_url}/api/v1/spu/proposal/{proposal_id}/vote" 
+        
+        try:
+            response = requests.post(url, headers=headers)
+            self._handle_response(response)
+            return response.json()
+        except Exception as e:
+            print(f"[!] Vote Failed: {e}")
+            return None
+
+    def deprecate_fork(self, spu_id):
+        """Deprecates an old or low-quality fork owned by the user."""
+        headers = {"X-SPU-KEY": self.api_key}
+        url = f"{self.base_url}/api/v1/spu/{spu_id}/deprecate" 
+        
+        try:
+            response = requests.post(url, headers=headers)
+            self._handle_response(response)
+            return response.json()
+        except Exception as e:
+            print(f"[!] Deprecation Failed: {e}")
             return None
 
     def freeze_state(self, session_id, context_summary):
