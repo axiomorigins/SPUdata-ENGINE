@@ -8,10 +8,14 @@ class SovereignAgent:
     The Python SDK for interacting with the SPUdata Memory Layer.
     Ensures deterministic execution and non-deterministic error recovery.
     """
-    def __init__(self, api_key=None, base_url="https://spudata.com"):
+    def __init__(self, api_key=None, base_url="https://spudata.com", cognitive_limit=80000):
         self.api_key = api_key or os.getenv("SPUDATA_API_KEY")
         # Added capability to override base_url via env var for staging environments
         self.base_url = os.getenv("SPUDATA_BASE_URL", base_url)
+        
+        # Cognitive Tracking
+        self.cognitive_limit = int(os.getenv("SPU_COGNITIVE_LIMIT", cognitive_limit))
+        self.current_token_burn = 0
         
         if not self.api_key:
             raise ValueError("Genesis API Key missing. Set SPUDATA_API_KEY environment variable.")
@@ -176,6 +180,61 @@ class SovereignAgent:
             print(f"Agent burned ~{token_burn} tokens traversing {sources_scraped} external sources.")
             print("Suggestion: Clean this final synthesized logic and vault it to your £3 Private Enclave.")
             print("Next time, retrieve this intelligence in O(1) time, saving compute and bypassing the web.\n")
+
+    def vault_resolved_use_case(self, title, logic_content, is_public=False):
+        """
+        Uploads an optimized, successful loop (Resolved Use Case) back to the vault.
+        Transforms SPU-DEV (optimization phase) into SPU-OPS (standard operating procedure).
+        """
+        headers = {"X-SPU-KEY": self.api_key, "Content-Type": "application/json"}
+        url = f"{self.base_url}/api/v1/spu"
+        
+        payload = {
+            "title": title,
+            "content": logic_content,
+            "category": "SPU-OPS",
+            "is_public": is_public
+        }
+        
+        try:
+            response = requests.post(url, json=payload, headers=headers)
+            self._handle_response(response)
+            if response.status_code == 201:
+                new_id = response.json().get('spu_id')
+                print(f"[+] Resolved Use Case successfully vaulted as SPU-OPS: {new_id}")
+                return new_id
+        except Exception as e:
+            print(f"[!] Vaulting Failed: {e}")
+            return None
+
+    def track_cognitive_load(self, token_burn, session_id, context_summary):
+        """
+        Monitors agent token usage. If the hard cognitive limit is breached,
+        automatically triggers the `freeze_state` -> context purge -> `wake_state` cycle.
+        """
+        self.current_token_burn += token_burn
+        
+        if self.current_token_burn >= self.cognitive_limit:
+            print(f"\n[COGNITIVE LIMIT REACHED: {self.current_token_burn} / {self.cognitive_limit} tokens]")
+            print("[EXECUTING O(1) FREEZE STATE...]")
+            
+            # Execute Save-State Protocol
+            spu_id = self.freeze_state(session_id, context_summary)
+            
+            if spu_id:
+                print(f"[FREEZE SUCCESS] Context secured at {spu_id}. Safely purging local LLM memory.")
+                print(f"[WAKING STATE] Retrieving sterile memory from vault...")
+                
+                # Execute Wake-State Protocol
+                sterile_context = self.wake_state(spu_id)
+                self.current_token_burn = 0  # Reset cognitive load after wake
+                
+                print("[WAKE SUCCESS] Agent memory reset and focused. Continuing execution.\n")
+                return sterile_context
+            else:
+                raise Exception("CRITICAL FAILURE: Could not freeze state at cognitive limit. Aborting to prevent hallucination.")
+                
+        return None
 
     def build_governed_prompt(self, spu_id, query):
         """Constructs a deterministic prompt payload."""
