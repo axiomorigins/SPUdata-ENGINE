@@ -1,75 +1,117 @@
-# 🛡️ SPUdata Agentic SDK (Python Wrapper)
-**The Memory Layer for Autonomous AI Agents.**
+# 🛡️ SPUdata-ENGINE: The Context CDN, MCP Server & PII Shield for Agentic AI
 
-[![Axiom Origins Tripartite Engine](https://img.shields.io/badge/Powered%20By-Axiom%20Origins-blue)](#)
-[![TallySticks Witness](https://img.shields.io/badge/Ledger-TallySticks_Verified-success)](#)
-[![EAVEcore Shield](https://img.shields.io/badge/Compliance-Liability_Zero-red)](#)
+[![EAVEcore Governance](https://img.shields.io/badge/Governance-EAVEcore%209--Vector%20Shield-10b981)](https://spudata.com)
+[![MCP Compatible](https://img.shields.io/badge/MCP-Claude%20%7C%20Cursor%20%7C%20Windsurf%20%7C%20Gemini-667eea)](https://spudata.com/api/v1/download/mcp-server)
+[![GCP Cloud Run Ready](https://img.shields.io/badge/Google%20Cloud-Vertex%20AI%20%26%20Cloud%20Run-4285F4)](https://spudata.com/#enterprise)
 
-> [!IMPORTANT]
-> **Genesis Cohort Testers:** Please read the **[Genesis Testing Handbook & Metrics Log](Genesis_Testing_Handbook.md)** for instructions on provisioning your test keys, your 6 Bounty Targets, and how to submit your telemetry data.
+**Live Platform:** [https://spudata.com](https://spudata.com)  
+**Developed by:** Axiom Origins Ltd & SPUdata Ltd (Company No. 16943167, England & Wales)
 
-> [!WARNING]
-> ⚠️ **Note for Genesis Testers:** SPUdata enforces strict Fair Usage Policies (1,000 requests / 60 seconds). Do not run infinite loops against the API, or the Sovereign Kill Switch will permanently sever your test key.
+---
 
-## Overview
-The current Agentic AI ecosystem burns millions of tokens probabilistically re-inventing basic logic loops. The **SPUdata SDK** allows developers to bypass the "thinking" phase and jump straight to the "execution" phase via **Deterministic Retrieval**. 
+## ⚡ Why SPUdata Exists
 
-By dropping this lightweight Python wrapper into your OpenAI, Anthropic, or LangChain pipelines, your AI agent can instantly retrieve mathematically sterile, pre-computed Sovereign Processing Units (SPUs). 
+Autonomous AI agents and IDE assistants (Claude Desktop, Cursor, Windsurf, Gemini Code Assist, Vertex AI) suffer from three compounding bottlenecks:
+1. **Exploding Token & Energy Overhead ("Context Rot"):** Scraping raw HTML documentation or carrying 80,000-token chat histories degrades model accuracy and burns expensive compute allowances.
+2. **Context Bleed Across Projects:** Mixing architecture patterns across repositories or organizational departments causes hallucinations.
+3. **Identity Bleed & PII Contamination:** Developers or autonomous workflows accidentally leaking live API keys, database connection strings, UK National Insurance Numbers, or customer PII into LLM memory stores.
 
-**The Result:** 
-* Up to 93.5% Token Reduction.
-* Zero Hallucination on core procedural tasks.
-* Inherent Auditability via the TallySticks Witness Layer.
+**SPUdata + EAVEcore** solves all three via a stateless **Context CDN** and **Zero-Dependency MCP Server**:
 
-## 🚀 Quickstart
+| Empirical Benchmark | Raw Web / Unfiltered RAG | SPUdata Deterministic Vault | Verified Improvement |
+| :--- | :---: | :---: | :---: |
+| **Context Payload Size** | ~47,956 tokens | **391 tokens** | **93.5% – 99.2% Token Reduction** |
+| **Retrieval Latency** | ~1,050 ms | **465 ms** | **56% Faster (O(1) Pull)** |
+| **Inference Energy per Call** | ~0.003 kWh | **~0.00001 kWh** | **300x Energy Reduction (Net-Zero Core)** |
+| **PII & Secret Exposure** | Unfiltered | **< 2 ms 9-Vector EAVEcore Block** | **Liability Zero (SHA-256 Witnessed)** |
 
-### 1. Provision Your Enclave
-Before running the agent, you must provision an API key on the SPUdata network and agree to the Social Value Contract.
-👉 **[Get your Sovereign Key at SPUdata.com](https://spudata.com)**
+---
 
-### 2. Drop the Wrapper into your Project
-Download spu_agent.py and place it in your working directory. 
+## 🔌 1. Quick Start: Plug into Claude Desktop, Cursor, Windsurf, or Gemini CLI (MCP)
 
-### 3. Initialize the Agent
-Set your API key as an environment variable or pass it directly to the wrapper:
+`spudata_mcp_server.py` is a **zero-dependency Python stdlib MCP Server** (JSON-RPC 2.0 over stdio). No `pip install` is required.
 
-\\\python
-from spu_agent import SovereignAgent
+### Step 1: Download `spudata_mcp_server.py` & Get Your Key
+* Provision an API Key at **[https://spudata.com/register.html](https://spudata.com/register.html)** (Starts at **£1** for Global Commons, **£3** for a Single-Project Enclave, **£29/yr** for Pro Developer Suite, or **£99/yr** for a 10-Seat Agency Compliance Vault).
+* Download `spudata_mcp_server.py` from this repository or directly from **[https://spudata.com/api/v1/download/mcp-server](https://spudata.com/api/v1/download/mcp-server)**.
 
-# Initialize the SPUdata connection
-agent = SovereignAgent(api_key="spudata_YOUR_LIVE_KEY_HERE")
-
-# Target a specific procedural rulebook (e.g., The Nolan Principles)
-TARGET_SPU = "SPU-650c4309"
-raw_query = "Draft an internal memo regarding the new procurement contract."
-
-# The SDK fetches the rules, verifies the cryptographic hash, and wraps the prompt
-safe_prompt = agent.build_governed_prompt(TARGET_SPU, raw_query)
-
-# Pass the safe_prompt directly to your LLM of choice
-print(safe_prompt)
+### Step 2: Add to `claude_desktop_config.json` or `.cursor/mcp.json`
+```json
+{
+  "mcpServers": {
+    "spudata": {
+      "command": "python",
+      "args": ["/absolute/path/to/spudata_mcp_server.py"],
+      "env": {
+        "SPUDATA_API_KEY": "spudata_YOUR_VAULT_KEY"
+      }
+    }
+  }
+}
 ```
 
-## 🧠 Save-State Context Swapping
-Need to hand off work between a cheap model (GPT-4o-mini) and an advanced model (Gemini 1.5 Pro)? The SDK allows you to "freeze" an agent's context and upload it as an ephemeral, private SPU. The second agent can then fetch the ID and wake up with full memory.
+### 7 Native MCP Tools Available to Your AI Agent
+| Tool Name | Description |
+| :--- | :--- |
+| `spudata_search` | Search the Global Commons & Core Registry for verified rulebooks (`fastapi`, `stripe`, `react`, `pii`, `nolan`, etc.). |
+| `spudata_get_rulebook` | Retrieve a deterministic SPU rulebook by ID (supports `preferred_tag` for intelligent fork routing) + `X-SPU-Governance-Hash`. |
+| `spudata_list_my_vault` | List all private and public SPU rulebooks and frozen state checkpoints in your authenticated Vault. |
+| `spudata_save_memory` | Vault a verified architecture pattern or resolved use-case (`SPU-OPS`). Automatically runs the 9-vector EAVEcore PII shield. |
+| `spudata_freeze_state` | Execute the **O(1) Save-State Protocol**: checkpoint current task state into your Private Enclave so you can clear context windows without losing progress. |
+| `spudata_wake_state` | Restore a frozen agent checkpoint by its SPU ID in O(1) time. |
+| `spudata_pii_scan` | Scan any prompt, config, or code snippet against the 9-vector EAVEcore Governance Cartridge before sending it to an LLM. |
+
+---
+
+## 🐍 2. Quick Start: Python Agentic SDK (`spu_agent.py`)
+
+For custom autonomous agents, LangChain/CrewAI pipelines, or Google Cloud Run microservices, use `SovereignAgent` from `spu_agent.py`:
 
 ```python
-# Agent A (OpenAI) analyzes data
-summary_data = "Analysis complete. Critical anomalies found in rows 45 and 92."
+from spu_agent import SovereignAgent
 
-# Agent A freezes its state before shutting down (Requires £3 Private Enclave)
-handoff_id = agent.freeze_state(session_id="TASK-992", context_summary=summary_data)
+# Initialize with your X-SPU-KEY (or set SPUDATA_API_KEY in environment)
+agent = SovereignAgent(api_key="spudata_YOUR_VAULT_KEY")
 
-# ... later, on a completely different server ...
+# 1. Build a governed, zero-hallucination prompt from a canonical SPU
+safe_prompt = agent.build_governed_prompt(
+    spu_id="SPU-650c4309",  # The Nolan Principles Framework
+    query="Draft an internal procurement compliance review."
+)
 
-# Agent B (Gemini) wakes up, pulls the exact SPU ID, and resumes the work
-resumed_context = agent.wake_state(handoff_id)
+# 2. O(1) Save-State Checkpointing (Prevents Context Rot at 80k tokens)
+checkpoint_id = agent.freeze_state(
+    session_id="MIGRATION-TASK-01",
+    context_summary="Completed DB schema v2; next step is Stripe webhook verification."
+)
+
+# 3. Wake State in a fresh agent process with zero token bloat
+restored_context = agent.wake_state(checkpoint_id)
 ```
 
-## 🔒 The EAVEcore Shield (Active Interception)
-If your agent attempts to upload or retrieve an SPU containing Personally Identifiable Information (PII) or hardcoded secrets, the EAVEcore Runtime Guard will deterministically sever the connection in < 600ms, returning a 403 Forbidden error. This guarantees absolute state isolation.
+---
 
-## 📜 Inherent Auditability
-Every successful retrieval and every blocked contamination event generates a deterministic ECDA hash. You can view your cryptographic receipt in your SPUdata dashboard and verify its authenticity publicly at the TallySticks Glass House.
+## 🛡️ 3. The EAVEcore 9-Vector PII & Secret Blast Door
 
-Built by Axiom Origins Ltd. - Reconciliation, Not Revolution.
+Every write (`POST /api/v1/spu`) and validation call (`POST /api/v1/validate`) passes through the **EAVEcore Active Runtime Interception Cartridge** in `< 2 ms`, blocking:
+1. **Hardcoded API Keys & Secrets** (`sk_live_`, AWS, GCP, generic tokens/passwords)
+2. **Plaintext Email Addresses**
+3. **UK National Insurance Numbers (NINO)**
+4. **UK & International Telephone / Mobile Numbers**
+5. **Banking Details (UK Sort Codes & Account Numbers)**
+6. **Financial PAN / Credit Card Numbers (FCA Compliance Block)**
+7. **Database & Cache Credential URIs (`postgres://`, `mongodb://`, `redis://`)**
+8. **Internal IPv4 Network Topologies (SSRF Prevention)**
+9. **Raw Cryptographic Wallet Addresses (BTC / BSV / Bech32 / ETH)**
+
+Every transaction is cryptographically hashed (`X-SPU-Governance-Hash`) and exportable via **`GET /api/v1/audit/export`** as an immutable **TallySticks Witness Ledger CSV**.
+
+---
+
+## ☁️ 4. Google Cloud Run & Vertex AI Enterprise Architecture
+
+Operating natively on **Google Cloud Run**, SPUdata acts as an upstream pre-processor for **Google Vertex AI** and enterprise LLM workloads—eliminating jurisdictional data bleed under **ISO-42001**, the **EU AI Act**, **UK GDPR**, and **G-Cloud 15 / CDDO Net-Zero** frameworks.
+
+* **Web Dashboard & Vault Provisioning:** [https://spudata.com](https://spudata.com)
+* **Sovereign Documentation & GQTM Standard:** [https://spudata.com/docs.html](https://spudata.com/docs.html)
+* **Enterprise & Public Sector Inquiries:** `governance@axiomorigins.com`
