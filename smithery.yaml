@@ -1,0 +1,20 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - spudataApiKey
+    properties:
+      spudataApiKey:
+        type: string
+        description: Your SPUdata Sovereign API Key (provision at https://spudata.com/register.html)
+  commandFunction:
+    |-
+    (config) => ({
+      command: 'python',
+      args: ['spudata_mcp_server.py'],
+      env: {
+        SPUDATA_API_KEY: config.spudataApiKey
+      }
+    })

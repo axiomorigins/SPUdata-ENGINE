@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spudata-mcp-server"
+version = "2.0.0"
+description = "SPUdata Sovereign Vault & EAVEcore 9-Vector PII Shield MCP Server and Python SDK"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+authors = [
+  { name = "Kenneth James Pringle - Axiom Origins Ltd & SPUdata Ltd", email = "contact@spudata.com" }
+]
+keywords = ["mcp", "model-context-protocol", "spudata", "eavecore", "pii-shield", "ai-memory", "context-cdn"]
+dependencies = [
+  "requests>=2.28.0"
+]
+
+[project.urls]
+Homepage = "https://spudata.com"
+Documentation = "https://spudata.com/docs.html"
+Repository = "https://github.com/axiomorigins/SPUdata-ENGINE"
+
+[project.scripts]
+spudata-mcp = "spudata_mcp_server:main"
